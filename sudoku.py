@@ -148,9 +148,9 @@ def convert_time(n):
     return f"{hour_str}:{min_str}:{sec_str}"
 
 
-
+number_of_empty = 45
 start = inti_grid()
-remove(start, 5)
+remove(start, number_of_empty)
 d = start
 game = True
 table = print_table(d)
