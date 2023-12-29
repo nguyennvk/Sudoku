@@ -99,7 +99,7 @@ class InputButton(ctk.CTkButton):
         if self.action != []:
             self.play_ground[self.action[-1]] = self.number
             self.button_dict[self.action[-1]].configure(text=self.number)
-            self.button_dict[self.action[-1]].configure(text_color=TEXT_COLOR)
+            self.button_dict[self.action[-1]].configure(text_color=BLUE)
             if check_win(self.play_ground):
                 self.end(convert_time(self.sec.get()))
             for x in range(9):

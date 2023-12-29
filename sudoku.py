@@ -1,16 +1,7 @@
 import random
 import time
 from random import randint
-class Time:
-    pass
-
-
-class Interphase:
-    pass
-
-
-class Solver:
-    pass
+from sudoku_color import num_empty
 
 
 def check_wrong(d: dict, row, col) -> set:
@@ -148,9 +139,8 @@ def convert_time(n):
     return f"{hour_str}:{min_str}:{sec_str}"
 
 
-number_of_empty = 45
+number_of_empty = num_empty
 start = inti_grid()
-remove(start, number_of_empty)
 d = start
 game = True
 table = print_table(d)

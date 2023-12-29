@@ -15,6 +15,7 @@ class App(ctk.CTk):
         self.resizable(False, False)
         self.light_mode = tk.BooleanVar(value=True)
 
+
         self.columnconfigure(0, weight=1, uniform="a")
         self.rowconfigure(0, weight=1, uniform="a")
 
@@ -32,7 +33,7 @@ class Menu(ctk.CTkFrame):
         self.rowconfigure(1, weight=2, uniform="b")
         self.columnconfigure((0, 1, 2), weight=1, uniform="b")
 
-        self.width, self.height = SIZE[0]*1.5, SIZE[1]*1.5
+        self.width, self.height = SIZE[0]*1.3, SIZE[1]*1.3
         self.menu_image = Image.open("SUDOKU_light.png").resize((int(self.width), int(self.height)))
         self.menu_imagetk = ImageTk.PhotoImage(self.menu_image)
         self.menu_image_dark = Image.open("SUDOKU_dark.png").resize((int(self.width), int(self.height)))
@@ -47,9 +48,9 @@ class Menu(ctk.CTkFrame):
 
         self.button = Button(self, self.clear_func)
         self.image_button = ImageButton(self, light_mode)
+        self.slider = LevelSlider(self, 0.93)
 
     def clear_func(self):
-        # self.grid_forget()
         frame = ctk.CTkFrame(self, fg_color=("#e4e4e4", "#292929"))
         frame.grid(column=0, row=0, columnspan=3, rowspan=2, sticky="news")
         frame_1 = ctk.CTkFrame(self, width=GRID[0], height=4, fg_color=TEXT_COLOR, corner_radius=0, border_width=0)
@@ -62,6 +63,7 @@ class Menu(ctk.CTkFrame):
         frame_4.place(relx=0.933, rely=0.1097, anchor="n")
 
         self.start = start
+        remove(self.start, int(sudoku_color.num_empty))
         self.action = []
         self.button_dict = {}
         self.end = ctk.BooleanVar(value=False)
@@ -91,6 +93,12 @@ class Menu(ctk.CTkFrame):
         frame.grid(column=0, row=0, columnspan=3, rowspan=2, sticky="news")
         ctk.CTkLabel(frame, text=f"You win!", font=("Calibri", 50)).place(relx=0.5, rely=0.4, anchor="center")
         ctk.CTkLabel(frame, text=s, font=("Calibri", 50)).place(relx=0.5, rely=0.5, anchor="center")
+        slider_level = LevelSlider(frame, 0.7)
+        ctk.CTkButton(frame, text="Restart", width=BUTTON_SIZE[0], height=BUTTON_SIZE[1],
+                      corner_radius=9, font=ctk.CTkFont(family="Calibri", size=40), fg_color=(BUTTON["light"]["color"], BUTTON["dark"]["color"]),
+                         text_color=(BUTTON["light"]["text"], BUTTON["dark"]["text"]),
+                         hover_color=(BUTTON["light"]["hover"], BUTTON["dark"]["hover"]),
+                         border_color=(BUTTON["light"]["text"], BUTTON["dark"]["text"]), border_width=3, command=self.clear_func).place(relx=0.5, rely=0.62, anchor="center")
 
     def change(self, *args):
         if not self.light_mode.get():
